@@ -58,7 +58,7 @@ function generateBilanganPrima(maxNumber) {
 }
 
 app.post("/calculate", (req, res) => {
-    const inputNumber = parseInt(req.body.inputNumber); // Ubah ke tipe data integer
+    const inputNumber = parseInt(req.body.inputNumber);
     const action = req.body.action;
     let result = "";
 
