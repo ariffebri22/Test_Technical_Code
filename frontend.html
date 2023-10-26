@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Calculate</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <div class="container">
+            <input type="number" id="inputNumber" placeholder="Input Number" />
+            <br />
+            <div class="button">
+                <button id="generateSegitiga">Generate Segitiga</button>
+                <button id="generateGanjil">Generate Bilangan Ganjil</button>
+                <button id="generatePrima">Generate Bilangan Prima</button>
+            </div>
+
+            <label id="result"></label>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                function sendAjaxRequest(action, inputNumber) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:4000/calculate",
+                        data: {
+                            action: action,
+                            inputNumber: inputNumber,
+                        },
+                        success: function (response) {
+                            $("#result").html(response.result);
+                        },
+                        error: function (err) {
+                            $("#result").html("Error: " + err.responseJSON.error);
+                        },
+                    });
+                }
+
+                $("#generateSegitiga").click(function () {
+                    const inputNumber = $("#inputNumber").val();
+                    sendAjaxRequest("segitiga", inputNumber);
+                });
+
+                $("#generateGanjil").click(function () {
+                    const inputNumber = $("#inputNumber").val();
+                    sendAjaxRequest("bilangan_ganjil", inputNumber);
+                });
+
+                $("#generatePrima").click(function () {
+                    const inputNumber = $("#inputNumber").val();
+                    sendAjaxRequest("bilangan_prima", inputNumber);
+                });
+            });
+        </script>
+    </body>
+</html>
